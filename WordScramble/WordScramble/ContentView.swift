@@ -16,6 +16,19 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+        
+        if let fileURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
+            
+            if let fileContents = try?String(contentsOf: fileURL){
+                let words = fileContents.components(separatedBy: "/n")
+                
+                let word=words.randomElement()
+                
+                let trimmed=word?.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+        }
+        
+
     }
 }
 
