@@ -34,6 +34,7 @@ struct ContentView: View {
             .navigationTitle(rootWord)
             .onSubmit(addNewWord)
             .onAppear(perform:startGame)
+            .onAppear(perform:firstIndex)
             .alert(errorTitle,isPresented: $showError){
                 Button("OK"){}
             } message: {
@@ -54,6 +55,7 @@ struct ContentView: View {
         }
         
         guard isPossible(word: answer) else {
+            print("rootWord \(rootWord)")
             wordError(title: "Word not possible", message: "You can't spell that word from '\(rootWord)'!")
             return
         }
@@ -85,7 +87,8 @@ struct ContentView: View {
     }
     
     func isOriginal(word:String)->Bool{
-        !usedWords.contains(word)
+        print("usedWords \(usedWords)")
+        return !usedWords.contains(word)
     }
     
     func isPossible(word:String)->Bool{
@@ -94,6 +97,7 @@ struct ContentView: View {
         for letter in word {
             if let pos=tempWord.firstIndex(of: letter){
                 tempWord.remove(at: pos)
+                print("tempWord \(tempWord)")
             }else{
                 return false
             }
